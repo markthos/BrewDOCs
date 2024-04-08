@@ -1,20 +1,38 @@
 "use client";
-
+// /pages/page.tsx
+import client from "../../lib/apolloClient";
 import { ApolloProvider } from "@apollo/client";
-import client from "../lib/apolloClient";
-import Image from "next/image";
+import { useQuery, gql } from "@apollo/client";
+
+const GET_USERS = gql`
+  query {
+    getUsers {
+      username
+    }
+  }
+`;
+
+function Users() {
+  const { loading, error, data } = useQuery(GET_USERS);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  return data.getUsers.map(({ username }: { username: string }) => (
+    <div key={username}>
+      <p>{username}</p>
+    </div>
+  ));
+}
+
+// use the query to pull from the server and return the usernames of all users for this nextjs page
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between leading-relaxed p-24">
       <ApolloProvider client={client}>
         <div className={"md:mr-auto p-1 drop-shadow-xl text-stone-600 max-w-4xl"}>
-          <h1 className="font-bold text-6xl pb-7">
-            Ready To Leave The Hassles Of Brewing Behind You?
-          </h1>
+          <h1 className="font-bold text-6xl pb-7">Who are our users?</h1>
           <h2 className="font-bold text-4xl text-stone-500">
-            BrewDocs has the technology to minimize error and drive your business towards the
-            future.
+            <Users />
           </h2>
         </div>
 
