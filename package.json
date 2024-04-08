@@ -23,5 +23,8 @@
   },
   "lint-staged": {
     "*.{js,mjs,jsx,ts,tsx,html,css,md}": "prettier --write"
+  },
+  "dependencies": {
+    "@apollo/experimental-nextjs-app-support": "^0.10.0"
   }
 }
