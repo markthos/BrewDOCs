@@ -1,8 +1,13 @@
-"use client";
 // /pages/page.tsx
+"use client";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useEffect, useRef } from "react";
 import client from "../../lib/apolloClient";
 import { ApolloProvider } from "@apollo/client";
 import { useQuery, gql } from "@apollo/client";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const GET_USERS = gql`
   query {
@@ -23,15 +28,27 @@ function Users() {
   ));
 }
 
-// use the query to pull from the server and return the usernames of all users for this nextjs page
-
 export default function Home() {
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      const t1 = gsap.timeline();
+      // bring in the main title and then the users list in a staggered fashion
+      t1.fromTo("h1", { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1 }).fromTo(
+        "div",
+        { opacity: 0, y: 100 },
+        { opacity: 1, y: 0, duration: 1 },
+        "-=0.5",
+      );
+    });
+    return () => ctx.kill();
+  }, []);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between leading-relaxed p-24">
       <ApolloProvider client={client}>
         <div className={"md:mr-auto p-1 drop-shadow-xl text-stone-600 max-w-4xl"}>
           <h1 className="font-bold text-6xl pb-7">Who are our users?</h1>
-          <h2 className="font-bold text-4xl text-stone-500">
+          <h2 className="users font-bold text-4xl text-stone-500">
             <Users />
           </h2>
         </div>
