@@ -20,12 +20,12 @@ export default function Home() {
 
         <div className="flex-row m-4 p-4 bg-slate-300/45 font-semibold text-gray-600 rounded-lg drop-shadow-lg">
           <a>
-            <button className="bg-amber-300 hover:bg-amber-200 border-0 m-4 p-2 rounded drop-shadow-md">
+            <button className="bg-gradient-to-t from-amber-400 to-amber-200 drop-shadow-md transition-all hover:shadow-lg border-0 m-4 p-2 rounded">
               Learn More
             </button>
           </a>
           <a>
-            <button className=" bg-amber-300 hover:bg-amber-200 m-4 border-0 p-2 px-6 rounded shadow-md">
+            <button className="bg-gradient-to-t from-amber-400 to-amber-200 drop-shadow-md transition-all hover:shadow-lg m-4 border-0 p-2 px-6 rounded">
               Sign Up
             </button>
           </a>
