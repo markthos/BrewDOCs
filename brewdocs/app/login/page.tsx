@@ -12,7 +12,7 @@ export default function LoginPage() {
         <div className="relative flex w-1/4 flex-col rounded-xl bg-white/35 bg-clip-border text-gray-700 shadow-md">
           <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-t from-stone-300 to-stone-200 bg-clip-border text-white drop-shadow-md">
             <h3 className="block font-sans text-4xl font-semibold leading-snug tracking-normal text-white uppercase antialiased drop-shadow-lg">
-              Sign In
+              Log In
             </h3>
           </div>
 
