@@ -69,7 +69,7 @@ export default function Signup() {
             <p className="mt-6 flex justify-center font-sans text-sm font-light leading-normal text-inherit antialiased">
               Already have an account?
               <a
-                href="#login"
+                href="/login"
                 className="ml-1 block font-sans text-sm font-bold leading-normal text-amber-400 antialiased hover:text-amber-600 transition-all"
               >
                 Log In
