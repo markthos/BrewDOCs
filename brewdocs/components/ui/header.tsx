@@ -11,6 +11,10 @@ export default async function Header() {
       label: "Contact Us",
     },
     {
+      href: "/dashboard",
+      label: "Dashboard",
+    },
+    {
       href: "/apollo_test",
       label: "Test",
     },
@@ -39,12 +43,12 @@ export default async function Header() {
 
   const AuthLinks = () => {
     return (
-      <div>
-        <Link href="/login" className="mr-5 hover:text-gray-900 font-semibold">
+      <div className="flex gap-2 items-center">
+        <Link href="/login" className="hover:text-gray-900 font-semibold">
           Login
         </Link>
         <Link href="/signup">
-          <button className="inline-flex font-semibold items-center bg-gradient-to-t from-amber-400 to-amber-200 border-0 py-1 px-3 focus:outline-none rounded transition-all hover:shadow-md text-base mt-4 md:mt-0">
+          <button className="flex font-semibold items-center bg-gradient-to-t from-amber-400 to-amber-200 border-0 py-1 px-3 focus:outline-none rounded transition-all hover:shadow-md text-base">
             Get Started
             <svg
               fill="none"

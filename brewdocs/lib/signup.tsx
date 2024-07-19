@@ -1,27 +1,21 @@
-import React, { useState, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import client from "../lib/apolloClient";
 import { ApolloProvider } from "@apollo/client";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { SIGNUP } from "../lib/gql/mutations";
+import { useRouter } from "next/navigation";
 
 interface SignupResponse {
   username: string;
   _id: string;
 }
 
-const SIGNUP = gql`
-  mutation signup($username: String!, $email: String!, $password: String!) {
-    signup(username: $username, email: $email, password: $password) {
-      username
-      _id
-    }
-  }
-`;
-
-function Signup() {
+export default function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signup, { error }] = useMutation<{ signup: SignupResponse }>(SIGNUP);
+  const router = useRouter();
 
   const handleSignup = async (e: FormEvent) => {
     e.preventDefault();
@@ -30,6 +24,8 @@ function Signup() {
       if (data) {
         console.log("Signed up user:", data.signup);
         // Here you can handle the successful signup, e.g., redirecting the user or storing user info
+        //! This may not be the best way to handle this, but it works for now - Edward
+        router.push("/dashboard");
       }
     } catch (e) {
       console.error("Error signing up:", e);
@@ -102,5 +98,3 @@ function Signup() {
     </ApolloProvider>
   );
 }
-
-export default Signup;

@@ -1,17 +1,8 @@
-// login logic
-
 import { useState } from "react";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "../gql/mutations";
 
-const LOGIN = gql`
-  mutation Login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      token
-    }
-  }
-`;
-
-const Login: React.FC = () => {
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [login, { data, error }] = useMutation(LOGIN);
@@ -52,6 +43,4 @@ const Login: React.FC = () => {
       {error && <p>{error.message}</p>}
     </div>
   );
-};
-
-export default Login;
+}

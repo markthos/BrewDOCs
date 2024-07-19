@@ -1,26 +1,20 @@
-import React, { useState, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import client from "./apolloClient";
 import { ApolloProvider } from "@apollo/client";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { useRouter } from "next/navigation";
+import { LOGIN } from "./gql/mutations";
 
 interface LoginResponse {
   username: string;
   _id: string;
 }
 
-const LOGIN = gql`
-  mutation login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      username
-      _id
-    }
-  }
-`;
-
-function Login() {
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [login, { error }] = useMutation<{ login: LoginResponse }>(LOGIN);
+  const router = useRouter();
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
@@ -29,6 +23,8 @@ function Login() {
       if (data) {
         console.log("Logged in user:", data.login);
         // Here you can handle the successful login, e.g., redirecting the user or storing user info
+        //! This may not be the best way to handle this, but it works for now - Edward
+        router.push("/dashboard");
       }
     } catch (e) {
       console.error("Error logging in:", e);
@@ -89,12 +85,12 @@ function Login() {
             </button>
             {error && <p>{error.message}</p>}
             <p className="mt-6 flex justify-center font-sans text-sm font-light leading-normal text-inherit antialiased">
-              Don't have an account?
+              No Account? No Problem!
               <a
                 href="/signup"
                 className="ml-1 block font-sans text-sm font-bold leading-normal text-amber-400 antialiased hover:text-amber-600 transition-all"
               >
-                Sign Up
+                Sign Up Here
               </a>
             </p>
           </div>
@@ -103,5 +99,3 @@ function Login() {
     </ApolloProvider>
   );
 }
-
-export default Login;
