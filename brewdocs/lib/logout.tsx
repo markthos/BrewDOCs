@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const Logout: React.FC = () => {
+export default function Logout() {
   useEffect(() => {
     // Clear token from localStorage
     localStorage.removeItem("token");
@@ -9,6 +9,4 @@ const Logout: React.FC = () => {
   }, []);
 
   return null; // This component doesn't render anything, it just handles logout logic
-};
-
-export default Logout;
+}

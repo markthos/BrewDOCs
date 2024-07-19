@@ -1,21 +1,14 @@
-// /pages/page.tsx
 "use client";
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import client from "../../lib/apolloClient";
 import { ApolloProvider } from "@apollo/client";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_USERS } from "@/lib/gql/queries";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const GET_USERS = gql`
-  query {
-    getUsers {
-      username
-    }
-  }
-`;
 
 function Users() {
   const { loading, error, data } = useQuery(GET_USERS);
