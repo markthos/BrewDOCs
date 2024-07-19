@@ -1,31 +1,49 @@
 import Link from "next/link";
 
 export default async function Header() {
-  return (
-    <header className="text-stone-600 body-font bg-slate-300/35 drop-shadow-lg">
-      <div className="container mx-auto py-3 flex flex-wrap md:flex-row items-center">
-        <a
-          href="/"
-          className="flex title-font font-medium items-center text-stone-600 mb-4 md:mb-0"
-        >
-          <span className="ml-3 text-xl">BrewDocs</span>
-        </a>
-        <nav className="md:mr-auto flex flex-wrap items-center font-semibold justify-center">
-          <a href="/about" className="ml-5 hover:text-gray-900">
-            About
-          </a>
-          <a href="/contact" className="ml-5 hover:text-gray-900">
-            Contact Us
-          </a>
-          <a href="/apollo_test" className="ml-5 hover:text-gray-900">
-            Test
-          </a>
-        </nav>
-        <a href="/login" className="mr-5 hover:text-gray-900 font-semibold">
+  const navLinks = [
+    {
+      href: "/about",
+      label: "About",
+    },
+    {
+      href: "/contact",
+      label: "Contact Us",
+    },
+    {
+      href: "/apollo_test",
+      label: "Test",
+    },
+  ];
+
+  const Logo = () => {
+    return (
+      <Link href="/" className="flex items-center font-medium text-stone-600 mb-4 md:mb-0">
+        <span className="rounded-full bg-slate-300 size-6 inline-block text-xs" />
+        <span className="ml-3 text-xl inline-block">BrewDocs</span>
+      </Link>
+    );
+  };
+
+  const NavLinks = () => {
+    return (
+      <nav className="flex flex-wrap items-center font-semibold justify-center">
+        {navLinks.map((link, index) => (
+          <Link key={index} href={link.href} className="ml-5 hover:text-gray-900">
+            {link.label}
+          </Link>
+        ))}
+      </nav>
+    );
+  };
+
+  const AuthLinks = () => {
+    return (
+      <div>
+        <Link href="/login" className="mr-5 hover:text-gray-900 font-semibold">
           Login
-        </a>{" "}
-        {/* Change "Login" to Link */}
-        <a href="/signup">
+        </Link>
+        <Link href="/signup">
           <button className="inline-flex font-semibold items-center bg-gradient-to-t from-amber-400 to-amber-200 border-0 py-1 px-3 focus:outline-none rounded transition-all hover:shadow-md text-base mt-4 md:mt-0">
             Get Started
             <svg
@@ -40,7 +58,17 @@ export default async function Header() {
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
           </button>
-        </a>
+        </Link>
+      </div>
+    );
+  };
+
+  return (
+    <header className="text-stone-600 bg-slate-300/35 drop-shadow-xl border-b border-white">
+      <div className="container mx-auto py-4 flex flex-col md:flex-row justify-between items-center">
+        <Logo />
+        <NavLinks />
+        <AuthLinks />
       </div>
     </header>
   );
